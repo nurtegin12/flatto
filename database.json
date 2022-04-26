@@ -23,6 +23,30 @@
       "image": "https://softech.kg/image/cache/73740f103f71d23f56e0e3c319c68bd9.jpg",
       "color": "grey",
       "id": 6
+    },
+    {
+      "name": "MackBook Air",
+      "desc": "very good laptop",
+      "price": "1550",
+      "image": "https://softech.kg/image/cache/6bdc5d5651c53cc8ef36bcec5b9f6117.jpg",
+      "color": "grey",
+      "id": 7
+    },
+    {
+      "name": "MackBook Pro 16",
+      "desc": "good laptop",
+      "price": "1250",
+      "image": "https://www.backmarket.co.uk/cdn-cgi/image/format=auto,quality=75,width=640/https://d1eh9yux7w8iql.cloudfront.net/product_images/529601_be549a1e-ba7a-43b2-b5f6-2f9878150898.jpg",
+      "color": "grey",
+      "id": 8
+    },
+    {
+      "name": "MackBook Pro 13",
+      "desc": "very good laptop",
+      "price": "990",
+      "image": "https://softech.kg/image/cache/73740f103f71d23f56e0e3c319c68bd9.jpg",
+      "color": "grey",
+      "id": 9
     }
   ]
 }

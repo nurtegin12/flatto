@@ -10,10 +10,9 @@ import React from "react";
 
 const SearchFilterBlock = () => {
   return (
-    <Container>
-      <div>
-        <TextField label="Поиск..." variant="standard" />
-        <FormControl variant="standard">
+    <div className="search-filter-block">
+      <TextField color="success" label="Поиск..." variant="standard" />
+      {/* <FormControl variant="standard">
           <InputLabel id="color-select-label">Фильтровать по цвету</InputLabel>
           <Select id="color-select-label" label="Фильтровать по цвету">
             <MenuItem value="black">Чёрный</MenuItem>
@@ -21,9 +20,8 @@ const SearchFilterBlock = () => {
             <MenuItem value="grey">Серый</MenuItem>
             <MenuItem value="dark-blue">Тёмно-синий</MenuItem>
           </Select>
-        </FormControl>
-      </div>
-    </Container>
+        </FormControl> */}
+    </div>
   );
 };
 

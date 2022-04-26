@@ -54,6 +54,7 @@ const EditProductPage = () => {
         <h2>Edit product</h2>
         <form onSubmit={handleSubmit}>
           <TextField
+            color="success"
             onChange={(e) =>
               setEditedProduct({ ...editedProduct, name: e.target.value })
             }
@@ -64,6 +65,7 @@ const EditProductPage = () => {
             style={{ marginTop: 10 }}
           />
           <TextField
+            color="success"
             onChange={(e) =>
               setEditedProduct({ ...editedProduct, desc: e.target.value })
             }
@@ -74,6 +76,7 @@ const EditProductPage = () => {
             style={{ marginTop: 10 }}
           />
           <TextField
+            color="success"
             onChange={(e) =>
               setEditedProduct({ ...editedProduct, price: e.target.value })
             }
@@ -84,6 +87,7 @@ const EditProductPage = () => {
             style={{ marginTop: 10 }}
           />
           <TextField
+            color="success"
             onChange={(e) =>
               setEditedProduct({ ...editedProduct, image: e.target.value })
             }
@@ -96,6 +100,7 @@ const EditProductPage = () => {
           <FormControl style={{ marginTop: 10 }} variant="standard">
             <InputLabel id="color-select-label">Выберите цвет</InputLabel>
             <Select
+              color="success"
               onChange={(e) =>
                 setEditedProduct({ ...editedProduct, color: e.target.value })
               }
@@ -109,7 +114,12 @@ const EditProductPage = () => {
               <MenuItem value="dark-blue">Тёмно-синий</MenuItem>
             </Select>
           </FormControl>
-          <Button style={{ marginTop: 10 }} type="submit" variant="outlined">
+          <Button
+            color="success"
+            style={{ marginTop: 10 }}
+            type="submit"
+            variant="contained"
+          >
             Edit product
           </Button>
         </form>

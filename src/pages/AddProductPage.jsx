@@ -50,6 +50,7 @@ const AddProductPage = () => {
         <h2>Add product</h2>
         <form onSubmit={handleSubmit}>
           <TextField
+            color="success"
             onChange={(e) =>
               setNewProduct({ ...newProduct, name: e.target.value })
             }
@@ -60,6 +61,7 @@ const AddProductPage = () => {
             style={{ marginTop: 10 }}
           />
           <TextField
+            color="success"
             onChange={(e) =>
               setNewProduct({ ...newProduct, desc: e.target.value })
             }
@@ -70,6 +72,7 @@ const AddProductPage = () => {
             style={{ marginTop: 10 }}
           />
           <TextField
+            color="success"
             onChange={(e) =>
               setNewProduct({ ...newProduct, price: e.target.value })
             }
@@ -80,6 +83,7 @@ const AddProductPage = () => {
             style={{ marginTop: 10 }}
           />
           <TextField
+            color="success"
             onChange={(e) =>
               setNewProduct({ ...newProduct, image: e.target.value })
             }
@@ -92,6 +96,7 @@ const AddProductPage = () => {
           <FormControl style={{ marginTop: 10 }} variant="standard">
             <InputLabel id="color-select-label">Выберите цвет</InputLabel>
             <Select
+              color="success"
               onChange={(e) =>
                 setNewProduct({ ...newProduct, color: e.target.value })
               }
@@ -105,7 +110,12 @@ const AddProductPage = () => {
               <MenuItem value="dark-blue">Тёмно-синий</MenuItem>
             </Select>
           </FormControl>
-          <Button style={{ marginTop: 10 }} type="submit" variant="outlined">
+          <Button
+            color="success"
+            style={{ marginTop: 20 }}
+            type="submit"
+            variant="contained"
+          >
             Add product
           </Button>
         </form>
