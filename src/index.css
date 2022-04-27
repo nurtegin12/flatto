@@ -22,10 +22,29 @@ body {
 .navbar-promo {
   background-color: rgb(101, 199, 106);
   height: 70px;
+  border-bottom: 0.5px solid rgb(56, 74, 52);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.navbar-promo2 {
+  width: 70%;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  border-bottom: 0.5px solid rgb(56, 74, 52);
+}
+
+.navbar-promo1 {
+  display: flex;
+  justify-content: center;
+  width: 15%;
+}
+
+.navbar-promo3 {
+  display: flex;
+  justify-content: center;
+  width: 15%;
 }
 
 .navbar-promo button {
@@ -38,7 +57,7 @@ a {
 }
 
 th {
-  background-color: rgb(142, 255, 151);
+  background-color: rgb(101, 199, 106);
 }
 
 .product-card-blocks {
@@ -61,4 +80,8 @@ th {
 
 .search-filter-block {
   margin-top: 15px;
+}
+
+.cartproduct-subprice {
+  width: 70px !important;
 }

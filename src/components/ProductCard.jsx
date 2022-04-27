@@ -5,9 +5,15 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import { IconButton } from "@mui/material";
+import { Share, ShoppingCart } from "@mui/icons-material";
+import { clientContext } from "../context/ClientContext";
 
 export default function ProductCard(props) {
   const { item } = props;
+
+  const data = React.useContext(clientContext);
+  const { addProductToCart, checkProductInCart, deleteProductInCart } = data;
 
   return (
     <>
@@ -30,8 +36,19 @@ export default function ProductCard(props) {
           </Typography>
         </CardContent>
         <CardActions>
-          <Button size="small">Share</Button>
-          <Button size="small">Learn More</Button>
+          {checkProductInCart(item.id) ? (
+            <IconButton onClick={() => deleteProductInCart(item.id)}>
+              <ShoppingCart color="success" />
+            </IconButton>
+          ) : (
+            <IconButton onClick={() => addProductToCart(item)}>
+              <ShoppingCart color="inherit" />
+            </IconButton>
+          )}
+
+          <IconButton>
+            <Share />
+          </IconButton>
         </CardActions>
       </Card>
     </>
