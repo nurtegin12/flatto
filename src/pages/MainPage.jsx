@@ -1,4 +1,4 @@
-import { Container } from "@mui/material";
+import { Container, Pagination } from "@mui/material";
 import React, { useEffect, useContext } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import ProductCard from "../components/ProductCard";
@@ -24,7 +24,6 @@ const MainPage = () => {
         hasMore={true}
         loader={<h3>Lo...</h3>}
       >
-        {" "}
         <div className="product-card-blocks">
           {products.map((item) => (
             <ProductCard key={item.id} item={item} />
