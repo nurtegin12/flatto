@@ -16,7 +16,7 @@ export default function AdminTable(props) {
   const { deleteProduct } = data;
 
   return (
-    <TableContainer component={Paper}>
+    <TableContainer style={{ marginBottom: 25 }} component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>

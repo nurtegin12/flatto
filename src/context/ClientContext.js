@@ -1,6 +1,13 @@
 import axios from "axios";
-import React, { useReducer } from "react";
-import { API_PRODUCTS } from "../helpers/const";
+import React, { useReducer, useState } from "react";
+import { API_CARD_DATAS, API_PRODUCTS } from "../helpers/const";
+import {
+  GoogleAuthProvider,
+  onAuthStateChanged,
+  signInWithPopup,
+  signOut,
+} from "firebase/auth";
+import { auth } from "../pages/firebase";
 
 export const clientContext = React.createContext();
 
@@ -10,6 +17,8 @@ const initState = {
     ? JSON.parse(localStorage.getItem("cart")).products.length
     : 0,
   cartProducts: null,
+  productDetails: null,
+  user: null,
 };
 
 const reducer = (state = initState, action) => {
@@ -22,6 +31,10 @@ const reducer = (state = initState, action) => {
       return { ...state, cartCount: action.payload };
     case "GET_PRODUCT_FROM_CART":
       return { ...state, cartProducts: action.payload };
+    case "GET_PRODUCT_DETAILS":
+      return { ...state, productDetails: action.payload };
+    case "CHECK_USER":
+      return { ...state, user: action.payload };
     default:
       return state;
   }
@@ -31,7 +44,7 @@ const ClientContext = (props) => {
   const [state, dispatch] = useReducer(reducer, initState);
 
   const getProducts = async () => {
-    const response = await axios(API_PRODUCTS);
+    const response = await axios(`${API_PRODUCTS}${window.location.search}`);
     const action = {
       type: "GET_PRODUCTS",
       payload: response.data,
@@ -39,7 +52,7 @@ const ClientContext = (props) => {
     dispatch(action);
   };
 
-  // ! Cart starts
+  // ! cart starts
 
   const addProductToCart = (product) => {
     let cart = JSON.parse(localStorage.getItem("cart"));
@@ -134,6 +147,71 @@ const ClientContext = (props) => {
     getProductFromCart();
   };
 
+  // ! cart ends
+
+  // ! pagination starts
+
+  const productsPerPage = 6;
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const indexOfFirstProduct = 0;
+  const indexOfLastProduct = currentPage * productsPerPage;
+
+  const products = state.products.slice(
+    indexOfFirstProduct,
+    indexOfLastProduct
+  );
+
+  const handlePagination = () => {
+    setCurrentPage(currentPage + 1);
+  };
+
+  // ! pagination ends
+
+  const getProductDetails = async (id) => {
+    const response = await axios(`${API_PRODUCTS}/${id}`);
+    const action = {
+      type: "GET_PRODUCT_DETAILS",
+      payload: response.data,
+    };
+    dispatch(action);
+  };
+
+  const authWithGoogle = async () => {
+    const provider = new GoogleAuthProvider();
+    signInWithPopup(auth, provider);
+  };
+
+  React.useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      const action = {
+        type: "CHECK_USER",
+        payload: user,
+      };
+      dispatch(action);
+    });
+  }, []);
+
+  const logOut = () => {
+    signOut(auth);
+  };
+
+  const addFeedback = async (newFeedback, product) => {
+    if (product.feedbacks) {
+      product.feedbacks.push(newFeedback);
+      await axios.patch(`${API_PRODUCTS}/${product.id}`, product);
+    } else {
+      product.feedbacks = [newFeedback];
+      await axios.patch(`${API_PRODUCTS}/${product.id}`, product);
+    }
+  };
+
+  // ! pay operation
+
+  const addCardDatas = async (newCardData) => {
+    await axios.post(API_CARD_DATAS, newCardData);
+  };
+
   return (
     <clientContext.Provider
       value={{
@@ -143,9 +221,17 @@ const ClientContext = (props) => {
         deleteProductInCart: deleteProductInCart,
         getProductFromCart: getProductFromCart,
         countInCart: countInCart,
-        products: state.products,
+        handlePagination: handlePagination,
+        getProductDetails: getProductDetails,
+        addFeedback: addFeedback,
+        authWithGoogle: authWithGoogle,
+        logOut: logOut,
+        addCardDatas: addCardDatas,
+        products: products,
         cartCount: state.cartCount,
         cartProducts: state.cartProducts,
+        productDetails: state.productDetails,
+        user: state.user,
       }}
     >
       {props.children}

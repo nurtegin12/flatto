@@ -7,8 +7,8 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { Button, Container, TableFooter, TextField } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Button, Container, TableFooter, TextField, Link } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const CartPage = () => {
   const data = React.useContext(clientContext);
@@ -19,6 +19,8 @@ const CartPage = () => {
     deleteProductInCart,
     cartCount,
   } = data;
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     getProductFromCart();
@@ -104,6 +106,16 @@ const CartPage = () => {
           </TableFooter>
         </Table>
       </TableContainer>
+
+      <div className="alya">
+        <Button
+          onClick={() => navigate("/pay-page")}
+          color="success"
+          variant="contained"
+        >
+          Способ оплаты
+        </Button>
+      </div>
     </Container>
   );
 };

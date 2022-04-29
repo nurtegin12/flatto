@@ -5,19 +5,29 @@ import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
-import { ListIcon } from "@mui/icons-material";
+import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
+import { Link, useNavigate } from "react-router-dom";
+import { Badge } from "@mui/material";
+import { Logout, ShoppingCart } from "@mui/icons-material";
+import { clientContext } from "../context/ClientContext";
+import HowToRegIcon from "@mui/icons-material/HowToReg";
+import LogoutIcon from "@mui/icons-material/Logout";
 
-const pages = ["Products", "Pricing", "Blog"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 const Navbar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+
+  const data = React.useContext(clientContext);
+  const { cartCount, authWithGoogle, user, logOut } = data;
+
+  const navigation = useNavigate();
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -35,106 +45,127 @@ const Navbar = () => {
   };
 
   return (
-    <AppBar position="static">
-      <Container maxWidth="xl">
-        <Toolbar disableGutters>
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
-          >
-            LOGO
-          </Typography>
-
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <ListIcon />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "left",
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: "block", md: "none" },
-              }}
-            >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}
-          >
-            LOGO
-          </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "white", display: "block" }}
+    <>
+      <AppBar className="app-bar-main" position="sticky">
+        <Container maxWidth="xl">
+          <Toolbar>
+            <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+              <IconButton
+                size="large"
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleOpenNavMenu}
+                color="inherit"
               >
-                {page}
-              </Button>
-            ))}
-          </Box>
-
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <Badge
+                  className="badge-navbar"
+                  badgeContent={cartCount}
+                  color="error"
+                >
+                  <MenuIcon />
+                </Badge>
               </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: "45px" }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorElNav}
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "left",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "left",
+                }}
+                open={Boolean(anchorElNav)}
+                onClose={handleCloseNavMenu}
+                sx={{
+                  display: { xs: "block", md: "none" },
+                }}
+              >
+                <Link to="/">
+                  <MenuItem onClick={handleCloseNavMenu}>
+                    <Typography textAlign="center">Main Page</Typography>
+                  </MenuItem>
+                </Link>
+                <Link to="/admin-panel">
+                  <MenuItem onClick={handleCloseNavMenu}>
+                    <Typography textAlign="center">Admin Panel</Typography>
+                  </MenuItem>
+                </Link>
+                <Link to="/admin-panel/add">
+                  <MenuItem onClick={handleCloseNavMenu}>
+                    <Typography textAlign="center">Add Product</Typography>
+                  </MenuItem>
+                </Link>
+                <Link to="/cart-panel">
+                  <MenuItem onClick={handleCloseNavMenu}>
+                    <Badge
+                      className="badge-navbar"
+                      badgeContent={cartCount}
+                      color="error"
+                    >
+                      <Typography textAlign="center">Cart</Typography>
+                    </Badge>
+                  </MenuItem>
+                </Link>
+              </Menu>
+            </Box>
+
+            <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+              <div className="app-bar-block1">
+                <Link style={{ marginRight: 10 }} to={"/cart-panel"}>
+                  <Badge
+                    className="badge-navbar"
+                    badgeContent={cartCount}
+                    color="error"
+                  >
+                    <ShoppingCart />
+                  </Badge>
+                </Link>
+              </div>
+              <div className="app-bar-block2">
+                <Link to={"/"}>
+                  <Button color="success" variant="contained">
+                    Main page
+                  </Button>
+                </Link>
+                <Link to={"/admin-panel"}>
+                  <Button color="success" variant="contained">
+                    Admin panel
+                  </Button>
+                </Link>
+                <Link to={"/admin-panel/add"}>
+                  <Button color="success" variant="contained">
+                    Add product
+                  </Button>
+                </Link>
+              </div>
+            </Box>
+
+            <Box
+              className="app-bar-block3"
+              style={{ display: "flex", alignItems: "center" }}
+              sx={{ flexGrow: 0 }}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
-        </Toolbar>
-      </Container>
-    </AppBar>
+              {user ? (
+                <>
+                  <Avatar src={user.photoURL} alt={user.displayName} />
+                  <IconButton onClick={logOut}>
+                    <LogoutIcon color="error" />
+                  </IconButton>
+                </>
+              ) : (
+                <IconButton onClick={authWithGoogle}>
+                  <HowToRegIcon />
+                </IconButton>
+              )}
+            </Box>
+          </Toolbar>
+        </Container>
+      </AppBar>
+    </>
   );
 };
 export default Navbar;

@@ -13,7 +13,7 @@ const NavbarPromo = () => {
       <div className="navbar-promo1">
         <Link to={"/cart-panel"}>
           <Badge badgeContent={cartCount} color="error">
-            <ShoppingCart color="action" />
+            <ShoppingCart />
           </Badge>
         </Link>
       </div>
@@ -37,7 +37,7 @@ const NavbarPromo = () => {
       <div className="navbar-promo3">
         <Link to={"/cart-panel"}>
           <Badge badgeContent={cartCount} color="error">
-            <ShoppingCart color="action" />
+            <ShoppingCart />
           </Badge>
         </Link>
       </div>
